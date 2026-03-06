@@ -3,6 +3,7 @@ import { DashboardSidebar } from "./DashboardHome";
 import { useQuery } from "@tanstack/react-query";
 import { Network, Filter, ChevronDown, ChevronUp, Zap, Search, RefreshCw, ArrowRight } from "lucide-react";
 import type { AgentHealth, AgentActivity } from "@shared/schema";
+import { DashboardMobileNav } from "@/components/layout/MobileBottomNav";
 
 const AGENTS = [
   { name: "Main", role: "Orchestrator", model: "Claude Sonnet", color: "#FFD700", x: 300, y: 180 },
@@ -76,7 +77,7 @@ export default function AgentSwarm() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <DashboardSidebar active="/dashboard/swarm" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8">
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-3">
             <Network className="text-gold" size={28} />
@@ -303,6 +304,7 @@ export default function AgentSwarm() {
           })}
         </div>
       </main>
+      <DashboardMobileNav active="/dashboard/swarm" />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/api";
 import type { Content } from "@shared/schema";
 import { useState, useMemo } from "react";
+import { DashboardMobileNav } from "@/components/layout/MobileBottomNav";
 import {
   FileText, CheckCircle, XCircle, ChevronDown, ChevronRight, RefreshCw, Wand2,
   Filter, Calendar, Clock, Globe, Twitter, Linkedin, Mail, BookOpen, ArrowRight,
@@ -149,7 +150,7 @@ export default function ContentPipeline() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <DashboardSidebar active="/dashboard/content" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold" data-testid="text-page-title">Content Mission Control</h1>
         </div>
@@ -273,7 +274,7 @@ export default function ContentPipeline() {
                       <button
                         onClick={handleRegenerate}
                         disabled={regenerating}
-                        className="btn-secondary text-xs py-1.5 px-3 min-h-0 h-auto flex items-center gap-1.5"
+                        className="btn-secondary text-xs py-1.5 px-3 min-h-[44px] flex items-center gap-1.5"
                         data-testid="button-regenerate"
                       >
                         {regenerating ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
@@ -397,14 +398,14 @@ export default function ContentPipeline() {
                       <button
                         onClick={() => approveContent.mutate({ id: selected.id, platforms: approvalPlatforms })}
                         disabled={approvalPlatforms.length === 0}
-                        className="btn-primary text-sm py-2 px-4 min-h-0 h-auto flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="btn-primary text-sm py-2 px-4 min-h-[44px] flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                         data-testid="button-approve-content"
                       >
                         <CheckCircle size={14} /> Approve & Publish
                       </button>
                       <button
                         onClick={() => updateContent.mutate({ id: selected.id, status: "draft" })}
-                        className="text-sm py-2 px-4 text-red-400 border border-red-500/30 rounded-md hover:bg-red-500/10 transition-colors flex items-center gap-2"
+                        className="text-sm py-2 px-4 min-h-[44px] text-red-400 border border-red-500/30 rounded-md hover:bg-red-500/10 transition-colors flex items-center gap-2"
                         data-testid="button-return-draft"
                       >
                         <XCircle size={14} /> Return to Draft
@@ -412,7 +413,7 @@ export default function ContentPipeline() {
                       {selected.status === "review" && (
                         <button
                           onClick={() => updateContent.mutate({ id: selected.id, status: "approval" })}
-                          className="btn-secondary text-sm py-2 px-4 min-h-0 h-auto flex items-center gap-2"
+                          className="btn-secondary text-sm py-2 px-4 min-h-[44px] flex items-center gap-2"
                           data-testid="button-move-approval"
                         >
                           <ArrowRight size={14} /> Move to Approval
@@ -473,6 +474,7 @@ export default function ContentPipeline() {
           )}
         </div>
       </main>
+      <DashboardMobileNav active="/dashboard/content" />
     </div>
   );
 }

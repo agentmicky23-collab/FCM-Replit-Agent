@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { LayoutDashboard, Target, FileText, PieChart, Users, Settings, Activity, AlertTriangle, Mail, Calendar, Network, Radar, MessageSquare } from "lucide-react";
 import type { AgentHealth } from "@shared/schema";
+import { DashboardMobileNav } from "@/components/layout/MobileBottomNav";
 
 function DashboardSidebar({ active = "/dashboard" }: { active?: string }) {
   const links = [
@@ -92,7 +93,7 @@ export default function DashboardHome() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <DashboardSidebar active="/dashboard" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">System Dashboard</h1>
           <span className="text-sm text-muted-foreground flex items-center gap-2">
@@ -183,6 +184,7 @@ export default function DashboardHome() {
           <Link href="/dashboard/hr" className="btn-secondary text-sm h-10 px-4 text-white border-border hover:border-gold hover:text-gold" data-testid="button-ask-harper">Ask HR Harper</Link>
         </div>
       </main>
+      <DashboardMobileNav active="/dashboard" />
     </div>
   );
 }

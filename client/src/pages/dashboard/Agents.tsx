@@ -1,6 +1,7 @@
 import { DashboardSidebar } from "./DashboardHome";
 import { useQuery } from "@tanstack/react-query";
 import type { AgentHealth } from "@shared/schema";
+import { DashboardMobileNav } from "@/components/layout/MobileBottomNav";
 
 export default function DashboardAgents() {
   const { data: agents = [] } = useQuery<AgentHealth[]>({
@@ -32,7 +33,7 @@ export default function DashboardAgents() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <DashboardSidebar active="/dashboard/agents" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8">
         <h1 className="text-3xl font-bold mb-8">AI Agent Swarm</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -72,6 +73,7 @@ export default function DashboardAgents() {
           })}
         </div>
       </main>
+      <DashboardMobileNav active="/dashboard/agents" />
     </div>
   );
 }

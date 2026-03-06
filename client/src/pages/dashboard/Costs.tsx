@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { CostRecord } from "@shared/schema";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, CartesianGrid } from "recharts";
 import { AlertTriangle } from "lucide-react";
+import { DashboardMobileNav } from "@/components/layout/MobileBottomNav";
 
 export default function DashboardCosts() {
   const { data: records = [] } = useQuery<CostRecord[]>({
@@ -50,7 +51,7 @@ export default function DashboardCosts() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <DashboardSidebar active="/dashboard/costs" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8">
         <h1 className="text-3xl font-bold mb-8">Cost Analytics</h1>
 
         {overBudget && (
@@ -118,6 +119,7 @@ export default function DashboardCosts() {
           </div>
         </div>
       </main>
+      <DashboardMobileNav active="/dashboard/costs" />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import type { Opportunity } from "@shared/schema";
 import { useState } from "react";
 import { Filter } from "lucide-react";
+import { InsidersMobileNav } from "@/components/layout/MobileBottomNav";
 
 export default function InsiderListings() {
   const [typeFilter, setTypeFilter] = useState("");
@@ -25,7 +26,7 @@ export default function InsiderListings() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <InsidersSidebar active="/insiders/listings" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <h1 className="text-3xl font-bold">Opportunity Scanner</h1>
           <div className="flex gap-3 items-center">
@@ -83,6 +84,7 @@ export default function InsiderListings() {
           </div>
         )}
       </main>
+      <InsidersMobileNav active="/insiders/listings" />
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import { InsidersSidebar } from "./InsidersHome";
 import { Bookmark } from "lucide-react";
+import { InsidersMobileNav } from "@/components/layout/MobileBottomNav";
 
 export default function InsiderProfile() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <InsidersSidebar active="/insiders/profile" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8 max-w-3xl">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8 max-w-3xl">
         <h1 className="text-3xl font-bold mb-8">My Profile</h1>
 
         <div className="fcm-card mb-8">
@@ -51,6 +52,7 @@ export default function InsiderProfile() {
           </div>
         </div>
       </main>
+      <InsidersMobileNav active="/insiders/profile" />
     </div>
   );
 }

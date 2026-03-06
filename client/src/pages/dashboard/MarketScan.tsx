@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { DashboardSidebar } from "./DashboardHome";
 import { useToast } from "@/hooks/use-toast";
 import type { Opportunity, ScanConfig } from "@shared/schema";
+import { DashboardMobileNav } from "@/components/layout/MobileBottomNav";
 import {
   Radar, SlidersHorizontal, Search, ChevronDown, ChevronUp,
   MapPin, Building2, Star, ExternalLink, Eye, Bookmark, TrendingUp,
@@ -201,7 +202,7 @@ export default function MarketScan() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <DashboardSidebar active="/dashboard/market-scan" />
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <div className="flex flex-col lg:flex-row">
           <aside className="lg:w-80 xl:w-96 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto border-b lg:border-b-0 lg:border-r border-border bg-card p-6 space-y-6">
             <div className="flex items-center justify-between">
@@ -599,6 +600,7 @@ export default function MarketScan() {
           </div>
         </div>
       </main>
+      <DashboardMobileNav active="/dashboard/market-scan" />
     </div>
   );
 }

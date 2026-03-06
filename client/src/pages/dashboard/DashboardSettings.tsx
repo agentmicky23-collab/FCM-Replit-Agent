@@ -1,5 +1,6 @@
 import { DashboardSidebar } from "./DashboardHome";
 import { useState } from "react";
+import { DashboardMobileNav } from "@/components/layout/MobileBottomNav";
 
 export default function DashboardSettings() {
   const [autoApprove, setAutoApprove] = useState(90);
@@ -24,7 +25,7 @@ export default function DashboardSettings() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <DashboardSidebar active="/dashboard/settings" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8 max-w-4xl">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8 max-w-4xl">
         <h1 className="text-3xl font-bold mb-8">Settings</h1>
 
         <section className="fcm-card mb-8">
@@ -78,6 +79,7 @@ export default function DashboardSettings() {
           </div>
         </section>
       </main>
+      <DashboardMobileNav active="/dashboard/settings" />
     </div>
   );
 }

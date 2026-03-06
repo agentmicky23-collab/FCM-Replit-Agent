@@ -2,6 +2,7 @@ import { InsidersSidebar } from "./InsidersHome";
 import { useQuery } from "@tanstack/react-query";
 import type { Content } from "@shared/schema";
 import { useState } from "react";
+import { InsidersMobileNav } from "@/components/layout/MobileBottomNav";
 
 export default function InsiderInsights() {
   const [trackFilter, setTrackFilter] = useState<string | null>(null);
@@ -17,7 +18,7 @@ export default function InsiderInsights() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <InsidersSidebar active="/insiders/insights" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8">
         <h1 className="text-3xl font-bold mb-2">Insights Library</h1>
         <p className="text-muted-foreground mb-8">Exclusive analysis and thought leadership from the FCM network.</p>
 
@@ -61,6 +62,7 @@ export default function InsiderInsights() {
           </div>
         )}
       </main>
+      <InsidersMobileNav active="/insiders/insights" />
     </div>
   );
 }

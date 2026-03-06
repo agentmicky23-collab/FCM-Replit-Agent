@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Search, Compass, BookOpen, User, Bell, ChevronRight, BarChart2 } from "lucide-react";
 import type { Opportunity, Content } from "@shared/schema";
+import { InsidersMobileNav } from "@/components/layout/MobileBottomNav";
 
 function InsidersSidebar({ active = "/insiders" }: { active?: string }) {
   const links = [
@@ -56,7 +57,7 @@ export default function InsidersHome() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <InsidersSidebar active="/insiders" />
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <header className="border-b border-border bg-card/50 px-6 py-4 flex justify-between items-center sticky top-0 backdrop-blur z-10">
           <h1 className="text-xl font-bold">Welcome back, Partner</h1>
           <button className="relative p-2 text-muted-foreground hover:text-gold transition-colors">
@@ -168,6 +169,7 @@ export default function InsidersHome() {
           </div>
         </div>
       </main>
+      <InsidersMobileNav active="/insiders" />
     </div>
   );
 }

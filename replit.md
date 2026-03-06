@@ -34,7 +34,7 @@ A full-stack Progressive Web App for a UK Post Office franchise operator (40+ br
 - `server/seed.ts` — Database seed script with realistic sample data
 - `client/src/App.tsx` — Main router with all page routes
 - `client/src/index.css` — Design system (dark theme, gold accent, custom utilities)
-- `client/src/components/layout/` — Navbar, Footer, AppLayout
+- `client/src/components/layout/` — Navbar, Footer, AppLayout, MobileBottomNav
 - `client/src/pages/dashboard/` — All admin dashboard pages
 - `client/src/pages/insiders/` — All insider-area pages
 
@@ -79,6 +79,15 @@ A full-stack Progressive Web App for a UK Post Office franchise operator (40+ br
 - Ask Harper chat responses use mock structured data with 2s delay
 - Content "Regenerate" and "Adapt" buttons show loading then same content
 - "Trigger Manual Scan" shows success toast
+
+## Mobile Navigation
+- `DashboardMobileNav` and `InsidersMobileNav` in `client/src/components/layout/MobileBottomNav.tsx`
+- Fixed bottom bar on mobile (<768px), `#1A1A1A` bg, gold active indicator, 44px min touch targets
+- Dashboard: Overview, Swarm, Pipeline, Content tabs + "More" overlay (Market Scan, Costs, Ask Harper, Agents, Settings)
+- Insiders: Feed, Listings, Market, Insights, Profile tabs
+- All pages include `pb-20 md:pb-8` on `<main>` to prevent content overlap
+- Ask Harper: conversation sidebar hidden on mobile, toggleable via hamburger, chat uses `h-[calc(100vh-64px)] md:h-screen`
+- All action buttons use `min-h-[44px]` for mobile touch targets
 
 ## Brand Rules
 - Background: #000000, Cards: #1A1A1A, Border: #333333

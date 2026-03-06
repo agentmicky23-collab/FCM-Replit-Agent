@@ -1,10 +1,11 @@
 import { InsidersSidebar } from "./InsidersHome";
+import { InsidersMobileNav } from "@/components/layout/MobileBottomNav";
 
 export default function InsiderMarket() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <InsidersSidebar active="/insiders/market" />
-      <main className="flex-1 overflow-y-auto p-6 md:p-8">
+      <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8">
         <h1 className="text-3xl font-bold mb-8">Market Intelligence</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -77,6 +78,7 @@ export default function InsiderMarket() {
           </table>
         </div>
       </main>
+      <InsidersMobileNav active="/insiders/market" />
     </div>
   );
 }

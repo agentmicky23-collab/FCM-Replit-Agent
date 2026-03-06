@@ -17,7 +17,10 @@ import {
   ShieldCheck,
   Bot,
   User,
+  Menu,
+  X,
 } from "lucide-react";
+import { DashboardMobileNav } from "@/components/layout/MobileBottomNav";
 
 interface ChatMessage {
   role: "user" | "harper";
@@ -171,6 +174,7 @@ export default function DashboardHrCases() {
   const [localMessages, setLocalMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isThinking, setIsThinking] = useState(false);
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -326,22 +330,36 @@ export default function DashboardHrCases() {
   const activeConv = conversations.find((c) => c.id === activeConversationId);
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
+    <div className="flex min-h-screen bg-background text-foreground pb-16 md:pb-0">
       <DashboardSidebar active="/dashboard/hr" />
-      <div className="flex-1 flex overflow-hidden h-screen">
-        <aside className="w-80 border-r border-border flex flex-col bg-card" data-testid="conversation-list-panel">
+      <div className="flex-1 flex overflow-hidden h-[calc(100vh-64px)] md:h-screen">
+        {showMobileSidebar && (
+          <div className="fixed inset-0 z-50 md:hidden" onClick={() => setShowMobileSidebar(false)}>
+            <div className="absolute inset-0 bg-black/60" />
+          </div>
+        )}
+        <aside className={`${showMobileSidebar ? "fixed inset-y-0 left-0 z-50 w-80 flex" : "hidden"} md:relative md:flex md:w-80 border-r border-border flex-col bg-card`} data-testid="conversation-list-panel">
           <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-lg font-bold flex items-center gap-2">
                 <Bot size={20} className="text-gold" /> Ask Harper
               </h2>
-              <button
-                onClick={startNewConversation}
-                className="p-2 rounded-md hover:bg-gold/10 text-gold transition-colors"
-                data-testid="button-new-conversation"
-              >
-                <Plus size={18} />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={startNewConversation}
+                  className="p-2 rounded-md hover:bg-gold/10 text-gold transition-colors"
+                  data-testid="button-new-conversation"
+                >
+                  <Plus size={18} />
+                </button>
+                <button
+                  onClick={() => setShowMobileSidebar(false)}
+                  className="p-2 rounded-md hover:bg-white/10 text-muted-foreground transition-colors md:hidden"
+                  data-testid="button-close-sidebar"
+                >
+                  <X size={18} />
+                </button>
+              </div>
             </div>
             <div className="relative">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
@@ -366,7 +384,7 @@ export default function DashboardHrCases() {
               filteredConversations.map((conv) => (
                 <button
                   key={conv.id}
-                  onClick={() => setActiveConversationId(conv.id)}
+                  onClick={() => { setActiveConversationId(conv.id); setShowMobileSidebar(false); }}
                   className={`w-full text-left p-4 border-b border-border hover:bg-background/50 transition-colors ${
                     activeConversationId === conv.id ? "bg-background border-l-2 border-l-gold" : ""
                   }`}
@@ -399,8 +417,16 @@ export default function DashboardHrCases() {
         <main className="flex-1 flex flex-col" data-testid="chat-panel">
           {activeConversationId || localMessages.length > 0 ? (
             <>
-              <div className="px-6 py-4 border-b border-border flex items-center justify-between bg-card">
-                <div>
+              <div className="px-4 md:px-6 py-4 border-b border-border flex items-center justify-between bg-card">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setShowMobileSidebar(true)}
+                    className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md hover:bg-white/10 text-muted-foreground md:hidden"
+                    data-testid="button-toggle-sidebar"
+                  >
+                    <Menu size={20} />
+                  </button>
+                  <div>
                   <h1 className="font-bold text-lg" data-testid="text-chat-title">
                     {activeConv?.title || "New Conversation"}
                   </h1>
@@ -414,12 +440,13 @@ export default function DashboardHrCases() {
                       </span>
                     )}
                   </div>
+                  </div>
                 </div>
                 {activeConversationId && (
                   <button
                     onClick={() => saveCaseMutation.mutate(activeConversationId)}
                     disabled={saveCaseMutation.isPending}
-                    className="btn-secondary text-xs h-8 px-3 gap-1.5"
+                    className="btn-secondary text-xs min-h-[44px] px-3 gap-1.5"
                     data-testid="button-save-as-case"
                   >
                     <BookmarkPlus size={14} />
@@ -441,7 +468,7 @@ export default function DashboardHrCases() {
                       </div>
                     )}
                     <div
-                      className={`max-w-[75%] ${
+                      className={`max-w-[90%] md:max-w-[75%] ${
                         msg.role === "user"
                           ? "bg-gold text-black rounded-2xl rounded-br-md px-4 py-3"
                           : "bg-card border border-border rounded-2xl rounded-bl-md px-4 py-3"
@@ -526,7 +553,7 @@ export default function DashboardHrCases() {
                 <div ref={messagesEndRef} />
               </div>
 
-              <div className="p-4 border-t border-border bg-card">
+              <div className="sticky bottom-0 p-4 border-t border-border bg-card" style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom, 0px))" }}>
                 <div className="flex gap-2">
                   <textarea
                     ref={inputRef}
@@ -546,7 +573,7 @@ export default function DashboardHrCases() {
                   <button
                     onClick={() => handleSend()}
                     disabled={!inputValue.trim() || isThinking}
-                    className="btn-primary h-auto px-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="btn-primary h-auto px-4 min-h-[44px] min-w-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
                     data-testid="button-send-message"
                   >
                     <Send size={18} />
@@ -555,7 +582,14 @@ export default function DashboardHrCases() {
               </div>
             </>
           ) : (
-            <div className="flex-1 flex flex-col items-center justify-center p-8" data-testid="chat-empty-state">
+            <div className="flex-1 flex flex-col items-center justify-center p-8 relative" data-testid="chat-empty-state">
+              <button
+                onClick={() => setShowMobileSidebar(true)}
+                className="absolute top-4 left-4 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md hover:bg-white/10 text-muted-foreground md:hidden"
+                data-testid="button-toggle-sidebar-empty"
+              >
+                <Menu size={20} />
+              </button>
               <div className="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center mb-6">
                 <Bot size={40} className="text-gold" />
               </div>
@@ -569,7 +603,7 @@ export default function DashboardHrCases() {
                   <button
                     key={i}
                     onClick={() => handleSend(prompt)}
-                    className="text-left p-4 bg-card border border-border rounded-lg hover:border-gold/50 transition-colors text-sm text-muted-foreground hover:text-white group"
+                    className="text-left p-4 min-h-[44px] bg-card border border-border rounded-lg hover:border-gold/50 transition-colors text-sm text-muted-foreground hover:text-white group"
                     data-testid={`quick-prompt-${i}`}
                   >
                     <MessageSquare size={14} className="text-gold mb-2 group-hover:scale-110 transition-transform" />
@@ -581,6 +615,7 @@ export default function DashboardHrCases() {
           )}
         </main>
       </div>
+      <DashboardMobileNav active="/dashboard/hr" />
     </div>
   );
 }
