@@ -6,7 +6,7 @@ import { useState, useMemo } from "react";
 import { DashboardMobileNav } from "@/components/layout/MobileBottomNav";
 import {
   FileText, CheckCircle, XCircle, ChevronDown, ChevronRight, RefreshCw, Wand2,
-  Filter, Calendar, Clock, Globe, Twitter, Linkedin, Mail, BookOpen, ArrowRight,
+  Filter, Calendar, Clock, Globe, Twitter, Linkedin, Mail, BookOpen, ArrowRight, ArrowLeft,
   Loader2, Eye, Edit3, Check
 } from "lucide-react";
 
@@ -184,7 +184,7 @@ export default function ContentPipeline() {
         </div>
 
         <div className="flex gap-6 mb-6">
-          <div className="w-80 flex-shrink-0">
+          <div className={`w-full md:w-80 md:flex-shrink-0 ${selected ? "hidden md:block" : "block"}`}>
             <div className="flex items-center gap-2 mb-3">
               <Filter size={16} className="text-muted-foreground" />
               <select
@@ -243,7 +243,7 @@ export default function ContentPipeline() {
             </div>
           </div>
 
-          <div className="flex-1 min-w-0">
+          <div className={`flex-1 min-w-0 ${selected ? "block" : "hidden md:block"}`}>
             {!selected ? (
               <div className="bg-card border border-border rounded-lg p-12 text-center" data-testid="content-empty-state">
                 <FileText size={48} className="mx-auto text-muted-foreground mb-4" />
@@ -253,6 +253,13 @@ export default function ContentPipeline() {
             ) : (
               <div className="space-y-4" data-testid="content-workbench">
                 <div className="bg-card border border-border rounded-lg p-6">
+                  <button
+                    onClick={() => setSelectedId(null)}
+                    className="md:hidden flex items-center gap-1.5 text-sm text-gold mb-4 min-h-[44px]"
+                    data-testid="button-back-to-list"
+                  >
+                    <ArrowLeft size={16} /> Back to list
+                  </button>
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <span className="text-xs font-mono text-gold uppercase mb-1 block">{selected.contentType.replace(/_/g, " ")}</span>

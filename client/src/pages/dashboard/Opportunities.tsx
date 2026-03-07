@@ -53,10 +53,10 @@ export default function DashboardOpportunities() {
     <div className="flex min-h-screen bg-background text-foreground">
       <DashboardSidebar active="/dashboard/opportunities" />
       <main className="flex-1 overflow-y-auto p-6 pb-20 md:p-8 md:pb-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Opportunity Pipeline</h1>
+        <div className="flex justify-between items-center gap-4 mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold shrink-0">Opportunity Pipeline</h1>
           <div className="flex gap-3 items-center">
-            <Filter size={16} className="text-muted-foreground" />
+            <Filter size={16} className="text-muted-foreground hidden md:block" />
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}

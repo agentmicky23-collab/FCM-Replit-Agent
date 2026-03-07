@@ -222,7 +222,7 @@ export default function AgentSwarm() {
                   <span className="text-xs px-1.5 py-0.5 rounded bg-card border border-border text-muted-foreground min-w-[70px] text-center">
                     {activity.actionType}
                   </span>
-                  <span className="text-sm text-foreground/80 flex-1">{activity.description}</span>
+                  <span className="text-sm text-foreground/80 flex-1 break-words min-w-0">{activity.description}</span>
                   {activity.targetAgent && (
                     <span className="text-xs text-muted-foreground flex items-center gap-1">
                       <ArrowRight size={10} /> {activity.targetAgent}
@@ -293,7 +293,7 @@ export default function AgentSwarm() {
                             <span className="text-muted-foreground font-mono">{formatTimeAgo(act.createdAt)}</span>
                             <span className="px-1.5 py-0.5 rounded bg-card border border-border text-muted-foreground">{act.actionType}</span>
                           </div>
-                          <p className="text-foreground/80">{act.description}</p>
+                          <p className="text-foreground/80 break-words">{act.description}</p>
                         </div>
                       ))
                     )}
